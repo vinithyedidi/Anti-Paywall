@@ -50,20 +50,27 @@ public class AntiPaywall {
 	/**
 	 * @throws OSException 
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
-	public void createFile() throws OSException, IOException {
-		String tempPath = null;
+	public void createFile() throws OSException, IOException, InterruptedException {
 		
 		if (getOS().indexOf("win") >= 0) {
-			tempPath = "C:\\Windows\\Temp\\tempFile.html";
+			String tempPath = "C:\\Windows\\Temp\\tempFile.html";
+			File file = new File(tempPath);
+			file.createNewFile();
+			setFile(file);
 		} else if (getOS().indexOf("mac") >= 0) {
-			tempPath = "~/Library/Caches/TemporaryItems/tempFile.html";
+			Process process = Runtime.getRuntime().exec("pwd");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			String tempPath = reader.readLine() + "/tempFile.html";
+			System.out.println(tempPath);
+			File file = new File(tempPath);
+			file.createNewFile();
+			setFile(file);
 		} else {
 			throw new OSException();
 		}
-		File file = new File(tempPath);
-	    file.createNewFile();
-	    setFile(file);
+
 	    BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 	    writer.write(this.getHTML());
 	    writer.close();
