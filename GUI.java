@@ -64,7 +64,8 @@ public class GUI implements ActionListener {
 		closing.setBounds(50, 100, 400, 25);
 		frame.add(closing);
 		
-		frame.setSize(500, 200);frame.setLayout(null);
+		frame.setSize(500, 200);
+		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
